@@ -12,15 +12,28 @@ func main() {
 		Name:  "gendiff",
 		Usage: "Compares two configuration files and shows a difference.",
 		
-		HideHelpCommand: true,
 		UsageText: "gendiff [global options]",
+		
+		HideHelpCommand: true,
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+
+                 Name:        "format",
+                                Aliases:     []string{"f"},
+                                Value:       "stylish",
+                                Usage:       "output format",
+                                // Эта строка заменяет "value" на "string"
+                                // Если не сработает, попробуйте заменить на: ValueName: "string",
+                                TakesFile:   true, 
+                                DefaultText: `"stylish"`, 
+			},
+		},
 		Action: func(c *cli.Context) error {
 			return nil
 		},
 	}
 
-	err := app.Run(os.Args)
-	if err != nil {
+	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
 }

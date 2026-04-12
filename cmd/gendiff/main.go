@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"os"
-        "code/internal/parser" 
+        "code" 
         "fmt"
 	"github.com/urfave/cli/v2"
 )
@@ -39,8 +39,9 @@ func main() {
 			}
 
 			
-			fmt.Println("File 1 parsed:", data1)
-			fmt.Println("File 2 parsed:", data2)
+		result := code.GenDiff(data1, data2)
+			fmt.Println(result)
+		
 
 			return nil
 		},

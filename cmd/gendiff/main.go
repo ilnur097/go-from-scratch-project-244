@@ -1,14 +1,16 @@
 package main
 
 import (
+	"context" 
+	"fmt"
 	"log"
 	"os"
-        "code" 
-        "fmt"
-	"github.com/urfave/cli/v2"
+	"code"
+	"github.com/urfave/cli/v3"
 )
+
 func main() {
-	app := &cli.App{
+	app := &cli.Command{
 		Name:  "gendiff",
 		Usage: "Compares two configuration files and shows a difference.",
 		Flags: []cli.Flag{
@@ -19,16 +21,14 @@ func main() {
 				Usage:   "output format",
 			},
 		},
-		Action: func(c *cli.Context) error {
-			
-			if c.Args().Len() < 2 {
+		Action: func(ctx context.Context, cmd *cli.Command) error {
+			if cmd.Args().Len() < 2 {
 				return fmt.Errorf("two file paths are required")
 			}
 
-			path1 := c.Args().Get(0)
-			path2 := c.Args().Get(1)
+			path1 := cmd.Args().Get(0)
+			path2 := cmd.Args().Get(1)
 
-			
 			data1, err := code.ParseFile(path1)
 			if err != nil {
 				return err
@@ -38,16 +38,14 @@ func main() {
 				return err
 			}
 
-			
-		result := code.GenDiff(data1, data2)
+			result := code.GenDiff(data1, data2)
 			fmt.Println(result)
-		
 
 			return nil
 		},
 	}
 
-	if err := app.Run(os.Args); err != nil {
+	if err := app.Run(context.Background(), os.Args); err != nil {
 		log.Fatal(err)
 	}
 }

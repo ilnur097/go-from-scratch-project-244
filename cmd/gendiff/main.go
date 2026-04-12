@@ -11,21 +11,19 @@ func main() {
 	app := &cli.App{
 		Name:  "gendiff",
 		Usage: "Compares two configuration files and shows a difference.",
-		
+
 		UsageText: "gendiff [global options]",
-		
+
 		HideHelpCommand: true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 
-                 Name:        "format",
-                                Aliases:     []string{"f"},
-                                Value:       "stylish",
-                                Usage:       "output format",
-                                // Эта строка заменяет "value" на "string"
-                                // Если не сработает, попробуйте заменить на: ValueName: "string",
-                                TakesFile:   true, 
-                                DefaultText: `"stylish"`, 
+				Name:        "format",
+				Aliases:     []string{"f"},
+				Value:       "stylish",
+				Usage:       "output format",
+				TakesFile:   true,
+				DefaultText: `"stylish"`,
 			},
 		},
 		Action: func(c *cli.Context) error {

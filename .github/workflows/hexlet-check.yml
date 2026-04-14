@@ -25,8 +25,8 @@ jobs:
         run: make test-coverage
 
       
-      - name: Run golangci-lint
-        uses: golangci-lint/golangci-lint-action@v3
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
 
       
       - name: SonarQube Scan

@@ -25,7 +25,10 @@ jobs:
           go tool cover -html=coverage.out -o coverage.html
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.64.8  
+          args: --timeout=5m
 
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master

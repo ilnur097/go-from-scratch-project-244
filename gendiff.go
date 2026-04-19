@@ -1,21 +1,22 @@
 package code
 
 import (
-	"encoding/json"
+	
 	"fmt"
 	"os"
 	"sort"
 	"strings"
+        "code/parsers"
 )
 
 
 func GenDiff(path1, path2, format string) (string, error) {
 	
-	data1, err := parseFile(path1)
+	data1, err := getData(path1)
 	if err != nil {
 		return "", err
 	}
-	data2, err := parseFile(path2)
+	data2, err := getData(path2)
 	if err != nil {
 		return "", err
 	}
@@ -60,12 +61,10 @@ func GenDiff(path1, path2, format string) (string, error) {
 }
 
 
-func parseFile(path string) (map[string]interface{}, error) {
-	content, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-	var data map[string]interface{}
-	err = json.Unmarshal(content, &data)
-	return data, err
+func getData(path string) (map[string]interface{}, error) {
+    content, err := os.ReadFile(path)
+    if err != nil {
+        return nil, err
+    }
+    return parsers.Parse(content, path)
 }

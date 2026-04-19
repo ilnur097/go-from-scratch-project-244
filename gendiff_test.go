@@ -4,6 +4,8 @@ import (
     "os"
     "strings"
     "testing"
+"github.com/stretchr/testify/assert"
+    
 )
 
 func TestGenDiff(t *testing.T) {
@@ -26,4 +28,17 @@ func TestGenDiff(t *testing.T) {
     if result != expected {
         t.Errorf("expected:\n%s\ngot:\n%s", expected, result)
     }
+}
+func TestGenDiffYAML(t *testing.T) {
+	file1 := "testdata/fixtures/file1.yml"
+	file2 := "testdata/fixtures/file2.yml"
+	expectedPath := "testdata/fixtures/expected_flat.txt"
+
+	expectedBytes, _ := os.ReadFile(expectedPath)
+	expected := strings.TrimSpace(string(expectedBytes))
+
+	result, err := GenDiff(file1, file2, "stylish")
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected, result)
 }

@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"code" 
+	"code"
 	"github.com/urfave/cli/v3"
 )
 
@@ -23,7 +23,6 @@ func main() {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-
 			if cmd.Args().Len() < 2 {
 				return fmt.Errorf("two file paths are required")
 			}
@@ -31,8 +30,6 @@ func main() {
 			path1 := cmd.Args().Get(0)
 			path2 := cmd.Args().Get(1)
 			format := cmd.String("format")
-
-
 
 			result, err := code.GenDiff(path1, path2, format)
 			if err != nil {
